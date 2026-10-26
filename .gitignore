@@ -23,8 +23,16 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# local env files
+# local env files (ignora todos os arquivos com senhas e chaves)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 .env*.local
+
+# Permite que o template de exemplo seja enviado ao Git
+!.env.example
 
 # vercel
 .vercel
