@@ -179,8 +179,8 @@ export function HomeOverview({
             </h2>
             <p className="text-xs text-indigo-100/90 mt-2 leading-relaxed">
               {userRole === 'admin'
-                ? 'Gerencie reuniões com diretores, preencha as 11 etapas do método com auto-save contínuo, compile o Book Estratégico em PDF e acompanhe as metas mensais (RMR) ao longo do ano.'
-                : 'Consulte as diretrizes estratégicas aprovadas, o Book Oficial da sua empresa em PDF e os resultados das reuniões mensais de acompanhamento.'}
+                ? 'Gerencie reuniões com diretores, preencha as 11 etapas do método com auto-save contínuo, compile o Book Estratégico em PDF e acompanhe as metas no Acompanhamento Mensal ao longo do ano.'
+                : 'Consulte as diretrizes estratégicas aprovadas, o Book Oficial da sua empresa em PDF e os resultados das reuniões de Acompanhamento Mensal.'}
             </p>
           </div>
         </div>
@@ -233,7 +233,7 @@ export function HomeOverview({
                   Planos Aprovados
                 </p>
                 <p className="text-2xl font-extrabold text-slate-800 mt-1">{totalApproved}</p>
-                <p className="text-[11px] text-slate-500 mt-0.5">RMR Mensal ativa</p>
+                <p className="text-[11px] text-slate-500 mt-0.5">Acompanhamento Mensal ativo</p>
               </div>
               <div className="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
                 <CheckCircle2 className="w-5 h-5" />
@@ -303,9 +303,9 @@ export function HomeOverview({
               <span className="w-6 h-6 rounded-lg bg-indigo-600 text-white font-bold text-xs flex items-center justify-center mb-2 shadow-xs">
                 4
               </span>
-              <h4 className="text-xs font-bold text-slate-800">Plano 5W2H & RMR</h4>
+              <h4 className="text-xs font-bold text-slate-800">Plano 5W2H & Acompanhamento</h4>
               <p className="text-[11px] text-slate-500 mt-1 leading-snug">
-                Ações com métrica dupla (Entrega vs. Resultado), geração do Book Estratégico e Reunião Mensal.
+                Ações com métrica dupla (Entrega vs. Resultado), geração do Book Estratégico e Acompanhamento Mensal.
               </p>
               <div className="mt-3 text-[10px] font-medium text-indigo-600 bg-white px-2 py-1 rounded-md border border-slate-200 inline-block">
                 Etapa 11 + Book
@@ -414,7 +414,7 @@ export function HomeOverview({
                       </div>
                       <div className="p-2 rounded-lg bg-slate-50/70 border border-slate-100">
                         <span className="text-[10px] text-slate-400 block font-medium">
-                          Última RMR
+                          Acompanhamento Mensal
                         </span>
                         <span className="font-bold text-slate-800 text-xs">
                           {comp.lastMeetingDate || 'Agendar'}
