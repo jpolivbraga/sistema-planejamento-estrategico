@@ -1,11 +1,11 @@
 'use client'
 
 import React, { useState } from 'react'
-import { Plus, Trash2, HelpCircle, Star, Sparkles, DollarSign, AlertCircle } from 'lucide-react'
+import { Plus, Trash2, HelpCircle, Star, DollarSign, AlertCircle } from 'lucide-react'
 
-type BCGQuadrant = 'question_mark' | 'star' | 'cash_cow' | 'dog'
+export type BCGQuadrant = 'cash_cow' | 'star' | 'dog' | 'question_mark'
 
-interface BCGItem {
+export interface BCGItem {
   id: string
   name: string
   quadrant: BCGQuadrant
@@ -13,18 +13,18 @@ interface BCGItem {
 
 export function Step2BCG() {
   const [items, setItems] = useState<BCGItem[]>([
-    { id: '1', name: 'maxRoteirizador', quadrant: 'star' },
-    { id: '2', name: 'maxMotorista', quadrant: 'star' },
-    { id: '3', name: 'maxPedido (Outros ERPs)', quadrant: 'question_mark' },
-    { id: '4', name: 'maxPromotor', quadrant: 'question_mark' },
-    { id: '5', name: 'maxPedido (WinThor)', quadrant: 'cash_cow' },
-    { id: '6', name: 'maxGestão', quadrant: 'cash_cow' },
-    { id: '7', name: 'maxPronta Entrega', quadrant: 'dog' },
-    { id: '8', name: 'maxFarma', quadrant: 'dog' },
+    { id: '1', name: 'maxPedido (WinThor)', quadrant: 'cash_cow' },
+    { id: '2', name: 'maxGestão', quadrant: 'cash_cow' },
+    { id: '3', name: 'maxRoteirizador', quadrant: 'star' },
+    { id: '4', name: 'maxMotorista', quadrant: 'star' },
+    { id: '5', name: 'maxPronta Entrega', quadrant: 'dog' },
+    { id: '6', name: 'maxFarma', quadrant: 'dog' },
+    { id: '7', name: 'maxPedido (Outros ERPs)', quadrant: 'question_mark' },
+    { id: '8', name: 'maxPromotor', quadrant: 'question_mark' },
   ])
 
   const [newItemName, setNewItemName] = useState('')
-  const [selectedQuadrant, setSelectedQuadrant] = useState<BCGQuadrant>('question_mark')
+  const [selectedQuadrant, setSelectedQuadrant] = useState<BCGQuadrant>('cash_cow')
 
   const handleAddItem = (e: React.FormEvent) => {
     e.preventDefault()
@@ -116,10 +116,10 @@ export function Step2BCG() {
             onChange={(e) => setSelectedQuadrant(e.target.value as BCGQuadrant)}
             className="text-xs px-2.5 py-2 rounded-lg border border-slate-200 bg-white text-slate-700 focus:outline-none"
           >
-            <option value="question_mark">❓ Interrogação</option>
-            <option value="star">⭐ Estrela</option>
             <option value="cash_cow">🐄 Vaca Leiteira</option>
+            <option value="star">⭐ Estrela</option>
             <option value="dog">🍍 Abacaxi</option>
+            <option value="question_mark">❓ Interrogação</option>
           </select>
           <button
             type="submit"
@@ -131,16 +131,19 @@ export function Step2BCG() {
         </form>
       </div>
 
-      {/* Grid 2x2 da Matriz BCG */}
+      {/* Grid 2x2 da Matriz BCG (Posições Invertidas conforme solicitado: Vaca Leiteira <-> Interrogação) */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {/* Quadrante Superior Esquerdo: Vaca Leiteira */}
         {renderQuadrant(
-          'question_mark',
-          'Interrogação (Em Dúvida)',
-          'Alto crescimento de mercado / Baixa participação',
-          <HelpCircle className="w-4 h-4 text-amber-600" />,
-          'bg-amber-100 text-amber-700',
-          'bg-amber-50/40 border-amber-200/60'
+          'cash_cow',
+          'Vaca Leiteira',
+          'Baixo crescimento de mercado / Alta participação (Gera Caixa)',
+          <DollarSign className="w-4 h-4 text-emerald-600" />,
+          'bg-emerald-100 text-emerald-700',
+          'bg-emerald-50/40 border-emerald-200/60'
         )}
+
+        {/* Quadrante Superior Direito: Estrela */}
         {renderQuadrant(
           'star',
           'Estrela',
@@ -149,6 +152,8 @@ export function Step2BCG() {
           'bg-indigo-100 text-indigo-700',
           'bg-indigo-50/40 border-indigo-200/60'
         )}
+
+        {/* Quadrante Inferior Esquerdo: Abacaxi */}
         {renderQuadrant(
           'dog',
           'Abacaxi (Cão)',
@@ -157,13 +162,15 @@ export function Step2BCG() {
           'bg-rose-100 text-rose-700',
           'bg-rose-50/40 border-rose-200/60'
         )}
+
+        {/* Quadrante Inferior Direito: Interrogação (Em Dúvida) */}
         {renderQuadrant(
-          'cash_cow',
-          'Vaca Leiteira',
-          'Baixo crescimento de mercado / Alta participação (Gera Caixa)',
-          <DollarSign className="w-4 h-4 text-emerald-600" />,
-          'bg-emerald-100 text-emerald-700',
-          'bg-emerald-50/40 border-emerald-200/60'
+          'question_mark',
+          'Interrogação (Em Dúvida)',
+          'Alto crescimento de mercado / Baixa participação',
+          <HelpCircle className="w-4 h-4 text-amber-600" />,
+          'bg-amber-100 text-amber-700',
+          'bg-amber-50/40 border-amber-200/60'
         )}
       </div>
     </div>

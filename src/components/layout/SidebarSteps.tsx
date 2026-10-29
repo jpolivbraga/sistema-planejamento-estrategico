@@ -1,15 +1,25 @@
 'use client'
 
 import React from 'react'
-import { CheckCircle, Circle, MinusCircle, Clock, BarChart3, Users, BookOpen } from 'lucide-react'
+import {
+  CheckCircle,
+  Circle,
+  MinusCircle,
+  Clock,
+  BarChart3,
+  BookOpen,
+  Info
+} from 'lucide-react'
 import { METHODOLOGY_STEPS, StepStatus } from '@/types/database'
+
+export type ActiveTabType = 'general_data' | 'methodology' | 'monthly_tracking'
 
 interface SidebarStepsProps {
   currentStep: number
-  activeTab: 'methodology' | 'monthly_tracking' | 'meetings'
+  activeTab: ActiveTabType
   stepsStatus: Record<number, StepStatus>
   onSelectStep: (stepNumber: number) => void
-  onSelectTab: (tab: 'methodology' | 'monthly_tracking' | 'meetings') => void
+  onSelectTab: (tab: ActiveTabType) => void
 }
 
 export function SidebarSteps({
@@ -33,34 +43,56 @@ export function SidebarSteps({
   }
 
   return (
-    <aside className="w-72 bg-white border-r border-slate-200 flex flex-col h-[calc(100vh-65px)] overflow-y-auto">
-      {/* Abas Superiores do Menu */}
-      <div className="p-3 border-b border-slate-100 flex gap-1 bg-slate-50/70">
+    <aside className="w-80 bg-white border-r border-slate-200 flex flex-col h-[calc(100vh-65px)] overflow-y-auto">
+      {/* Abas Superiores do Menu: Dados Gerais (à esquerda), Etapas (11), Acompanhamento Mensal */}
+      <div className="p-2 border-b border-slate-100 grid grid-cols-3 gap-1 bg-slate-50/70">
+        {/* 1. Dados Gerais (posicionada à esquerda) */}
         <button
-          onClick={() => onSelectTab('methodology')}
-          className={`flex-1 py-2 px-2.5 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition ${
-            activeTab === 'methodology'
-              ? 'bg-white text-indigo-700 shadow-sm border border-slate-200'
+          type="button"
+          onClick={() => onSelectTab('general_data')}
+          className={`py-2 px-1.5 rounded-lg text-[11px] font-semibold flex items-center justify-center gap-1 transition ${
+            activeTab === 'general_data'
+              ? 'bg-white text-indigo-700 shadow-xs border border-slate-200'
               : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
           }`}
+          title="Dados Gerais do Planejamento"
+        >
+          <Info className="w-3.5 h-3.5" />
+          <span>Gerais</span>
+        </button>
+
+        {/* 2. Etapas (11) */}
+        <button
+          type="button"
+          onClick={() => onSelectTab('methodology')}
+          className={`py-2 px-1.5 rounded-lg text-[11px] font-semibold flex items-center justify-center gap-1 transition ${
+            activeTab === 'methodology'
+              ? 'bg-white text-indigo-700 shadow-xs border border-slate-200'
+              : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
+          }`}
+          title="As 11 Etapas Metodológicas"
         >
           <BookOpen className="w-3.5 h-3.5" />
-          Etapas (11)
+          <span>Etapas (11)</span>
         </button>
+
+        {/* 3. Acompanhamento Mensal (renomeado de RMR Mensal) */}
         <button
+          type="button"
           onClick={() => onSelectTab('monthly_tracking')}
-          className={`flex-1 py-2 px-2.5 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition ${
+          className={`py-2 px-1.5 rounded-lg text-[11px] font-semibold flex items-center justify-center gap-1 transition ${
             activeTab === 'monthly_tracking'
-              ? 'bg-white text-indigo-700 shadow-sm border border-slate-200'
+              ? 'bg-white text-indigo-700 shadow-xs border border-slate-200'
               : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
           }`}
+          title="Acompanhamento Mensal de Resultados"
         >
           <BarChart3 className="w-3.5 h-3.5" />
-          RMR Mensal
+          <span>Acompanh.</span>
         </button>
       </div>
 
-      {activeTab === 'methodology' ? (
+      {activeTab === 'methodology' && (
         <div className="p-3 space-y-1">
           <div className="px-2 py-1 text-[11px] font-bold uppercase tracking-wider text-slate-400">
             Ciclo Estratégico
@@ -101,10 +133,27 @@ export function SidebarSteps({
             )
           })}
         </div>
-      ) : (
-        <div className="p-4 text-xs text-slate-500">
-          <p className="font-semibold text-slate-700 mb-2">Reuniões Mensais de Resultados</p>
-          <p>Acompanhamento mensal das metas, indicadores e decisões tomadas com a alta gestão.</p>
+      )}
+
+      {activeTab === 'general_data' && (
+        <div className="p-4 text-xs text-slate-500 space-y-3">
+          <div className="p-3 rounded-xl bg-indigo-50/70 border border-indigo-100 text-indigo-950">
+            <p className="font-bold text-xs mb-1">Seção de Dados Gerais</p>
+            <p className="text-[11px] leading-relaxed">
+              Consulte e edite os dados cadastrais da empresa, datas do ciclo e participantes. A barra de progresso é atualizada pelas 11 etapas.
+            </p>
+          </div>
+        </div>
+      )}
+
+      {activeTab === 'monthly_tracking' && (
+        <div className="p-4 text-xs text-slate-500 space-y-3">
+          <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-700">
+            <p className="font-bold text-xs mb-1">Acompanhamento Mensal</p>
+            <p className="text-[11px] leading-relaxed">
+              Monitoramento mês a mês das ações estratégicas, indicadores de resultado e decisões tomadas com a alta gestão.
+            </p>
+          </div>
         </div>
       )}
     </aside>
